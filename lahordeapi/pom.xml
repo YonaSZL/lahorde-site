@@ -107,6 +107,7 @@
                     <java>
                         <eclipse>
                             <version>4.29</version>
+                            <configFile>${basedir}/eclipse-imports.xml</configFile>
                         </eclipse>
                         <removeUnusedImports/>
                         <trimTrailingWhitespace/>
