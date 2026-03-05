@@ -12,9 +12,13 @@ DBTableEntity
 
 ## Mappers
 
+IDBTableMapper
+
+## Service Implementations
+
 DBTableMapper
 
-## Mapper Tests
+## Mapper Implementation Tests
 
 DBTableMapperTest
 
