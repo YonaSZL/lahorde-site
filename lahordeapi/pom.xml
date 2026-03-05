@@ -10,22 +10,28 @@
     <artifactId>lahordeapi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- Parent Spring Boot -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.0.3</version>
+        <relativePath/>
+    </parent>
+
     <properties>
-        <maven.compiler.source>24</maven.compiler.source>
-        <maven.compiler.target>24</maven.compiler.target>
+        <java.version>24</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <!-- Lombok mis à jour pour JDK 24 -->
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
 
-        <slf4j.version>2.0.13</slf4j.version>
+        <slf4j.version>2.0.17</slf4j.version>
         <logback.version>1.5.32</logback.version>
-        <validation.version>3.0.2</validation.version>
+        <validation.version>3.1.1</validation.version>
         <junit.version>5.10.2</junit.version>
         <mockito.version>5.12.0</mockito.version>
 
-        <!-- Force le traitement complet des annotations -->
         <maven.compiler.proc>full</maven.compiler.proc>
+        <spotless.eclipse.version>4.29</spotless.eclipse.version>
     </properties>
 
     <dependencies>
@@ -56,11 +62,27 @@
             <version>${validation.version}</version>
         </dependency>
 
+        <!-- Spring Boot REST + JPA vulnerability in 4.0.3 but is latest -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- MySQL Connector -->
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Tests -->
         <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -69,6 +91,19 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.5.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.5.5.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -77,10 +112,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.15.0</version>
                 <configuration>
-                    <source>24</source>
-                    <target>24</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -95,19 +130,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>3.5.5</version>
             </plugin>
 
             <!-- Spotless (formatter style Prettier) -->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>2.43.0</version>
+                <version>3.2.1</version>
                 <configuration>
                     <java>
                         <eclipse>
-                            <version>4.29</version>
-                            <configFile>${basedir}/eclipse-imports.xml</configFile>
+                            <version>${spotless.eclipse.version}</version>
                         </eclipse>
                         <removeUnusedImports/>
                         <trimTrailingWhitespace/>
@@ -124,5 +158,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

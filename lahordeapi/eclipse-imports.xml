@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<profiles version="12">
-    <profile kind="CodeFormatterProfile" name="NoStarImports" version="12">
-        <setting id="org.eclipse.jdt.core.compiler.importOrder" value="java,javax,org,com"/>
-        <setting id="org.eclipse.jdt.core.compiler.importThreshold" value="1"/>
-        <setting id="org.eclipse.jdt.core.compiler.staticImportThreshold" value="1"/>
-    </profile>
-</profiles>
