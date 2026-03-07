@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface IItemService {
 
-	List<ItemDTO> getAllItems();
+    List<ItemDTO> getAllItems();
 
-	ItemDTO getItemById(int id);
+    ItemDTO getItemById(int id);
 
-	ItemDTO createItem(ItemDTO dto); // Insert
+    ItemDTO createItem(ItemDTO dto); // Insert
 
-	ItemDTO updateItem(int id, ItemDTO dto); // Update sécurisé
+    ItemDTO updateItem(int id, ItemDTO dto); // Update sécurisé
 
-	void deleteItem(int id);
+    void deleteItem(int id);
 }

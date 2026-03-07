@@ -5,68 +5,134 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import yonasazela.lahordeapi.dto.ItemDTO;
 import yonasazela.lahordeapi.entities.ItemEntity;
+import yonasazela.lahordeapi.exceptions.*;
 import yonasazela.lahordeapi.mappers.implementation.ItemMapper;
 import yonasazela.lahordeapi.repositories.ItemRepository;
 import yonasazela.lahordeapi.services.IItemService;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class ItemService implements IItemService {
 
-	private final ItemRepository itemRepository;
-	private final ItemMapper itemMapper; // Injection de notre mapper avec builder
+    private final ItemRepository itemRepository;
+    private final ItemMapper itemMapper;
 
-	@Override
-	public List<ItemDTO> getAllItems() {
-		return itemRepository.findAll().stream().map(itemMapper::toDTO).collect(Collectors.toList());
-	}
+    // ===== SECTION 1 - CRUD DATABASE ONE ENTITY =====
 
-	@Override
-	public ItemDTO getItemById(int id) {
-		ItemEntity entity = itemRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
-		return itemMapper.toDTO(entity);
-	}
+    // CREATE / UPDATE
+    private ItemEntity save(ItemEntity entity) {
+        try {
+            return itemRepository.save(entity);
+        } catch (Exception e) {
+            throw new DBException("Error while saving object", e);
+        }
+    }
 
-	@Override
-	public ItemDTO createItem(ItemDTO dto) {
-		// Vérifier qu'aucun item avec le même nom n’existe
-		Optional<ItemEntity> existing = itemRepository.findByName(dto.getName());
-		if (existing.isPresent()) {
-			throw new RuntimeException("Item with name already exists: " + dto.getName());
-		}
+    // READ
+    private ItemEntity findById(int id) {
+        try {
+            return itemRepository.findById(id)
+                    .orElseThrow(() -> new ObjectNotFoundException(id));
+        } catch (ObjectNotFoundException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DBException("Error while retrieving object", id, e);
+        }
+    }
 
-		// Convertir DTO en Entity avec builder
-		ItemEntity entity = itemMapper.toEntity(dto);
-		entity.setId(0); // s'assurer que c'est un insert
+    // EXISTENCE CHECKS
+    private boolean existsById(int id) {
+        try {
+            return itemRepository.existsById(id);
+        } catch (Exception e) {
+            throw new DBException("Error while checking existence", id, e);
+        }
+    }
 
-		ItemEntity saved = itemRepository.save(entity);
-		return itemMapper.toDTO(saved);
-	}
+    private boolean existsByName(String name) {
+        try {
+            return itemRepository.existsByName(name);
+        } catch (Exception e) {
+            throw new DBException("Error while checking existence", name, e);
+        }
+    }
 
-	@Override
-	public ItemDTO updateItem(int id, ItemDTO dto) {
-		// Récupérer l'entity existante
-		ItemEntity entity = itemRepository.findById(id)
-				.orElseThrow(() -> new RuntimeException("Cannot update non-existent item with id: " + id));
+    // DELETE
+    private void deleteById(int id) {
+        try {
+            itemRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new DBException("Error while deleting object", id, e);
+        }
+    }
 
-		// Mapper uniquement les champs modifiables depuis le DTO
-		itemMapper.updateEntityFromDTO(dto, entity);
+    // ===== SECTION 2 - CRUD DATABASE MULTIPLE ENTITIES =====
 
-		ItemEntity updated = itemRepository.save(entity);
-		return itemMapper.toDTO(updated);
-	}
+    private List<ItemEntity> findAll() {
+        try {
+            return itemRepository.findAll();
+        } catch (Exception e) {
+            throw new DBException("Error while retrieving all objects", e);
+        }
+    }
 
-	@Override
-	public void deleteItem(int id) {
-		if (!itemRepository.existsById(id)) {
-			throw new RuntimeException("Item not found with id: " + id);
-		}
-		itemRepository.deleteById(id);
-	}
+    // ===== SECTION 3 - CRUD API ONE ENTITY =====
+
+    @Override
+    public ItemDTO getItemById(int id) {
+        if (id < 0) throw new NegativeIdentifierException();
+
+        ItemEntity entity = findById(id);
+        return itemMapper.toDTO(entity);
+    }
+
+    @Override
+    public ItemDTO createItem(ItemDTO dto) {
+        if (dto == null) throw new NullObjectException();
+        if (dto.getName() == null || dto.getName().isBlank())
+            throw new NullStringParameterException();
+
+        if (existsByName(dto.getName()))
+            throw new ObjectAlreadyExistsException("name", dto.getName());
+
+        ItemEntity entity = itemMapper.toEntity(dto);
+        entity.setId(0);
+
+        ItemEntity saved = save(entity);
+        return itemMapper.toDTO(saved);
+    }
+
+    @Override
+    public ItemDTO updateItem(int id, ItemDTO dto) {
+        if (id < 0) throw new NegativeIdentifierException();
+        if (id == 0) throw new ZeroUpdateIdentifierException();
+        if (dto == null) throw new NullObjectException();
+
+        ItemEntity entity = findById(id);
+        itemMapper.updateEntityFromDTO(dto, entity);
+
+        ItemEntity updated = save(entity);
+        return itemMapper.toDTO(updated);
+    }
+
+    @Override
+    public void deleteItem(int id) {
+        if (id < 0) throw new NegativeIdentifierException();
+        if (!existsById(id)) throw new ObjectNotFoundException(id);
+
+        deleteById(id);
+    }
+
+    // ===== SECTION 4 - CRUD API MULTIPLE ENTITIES =====
+
+    @Override
+    public List<ItemDTO> getAllItems() {
+        List<ItemEntity> entities = findAll();
+        return entities.stream()
+                .map(itemMapper::toDTO)
+                .toList();
+    }
 }
