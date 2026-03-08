@@ -10,13 +10,13 @@ class ObjectNotFoundExceptionTest extends ExceptionsBaseTest {
 
 	@Test
     void shouldThrow_ObjectNotFoundException_WhenIdDoesNotExist() {
-        when(itemRepository.findById(1)).thenReturn(Optional.empty());
+        when(itemRepository.findById(id)).thenReturn(Optional.empty());
         assertThrows(ObjectNotFoundException.class, () -> itemService.getItemById(1));
     }
 
 	@Test
     void shouldNotThrow_ObjectNotFoundException_WhenIdExists() {
-        when(itemRepository.findById(1)).thenReturn(Optional.of(itemEntity));
+        when(itemRepository.findById(id)).thenReturn(Optional.of(itemEntity));
         assertDoesNotThrow(() -> itemService.getItemById(1));
     }
 }

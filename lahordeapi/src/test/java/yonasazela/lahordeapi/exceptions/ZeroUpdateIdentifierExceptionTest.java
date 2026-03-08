@@ -15,7 +15,7 @@ class ZeroUpdateIdentifierExceptionTest extends ExceptionsBaseTest {
 
 	@Test
     void shouldNotThrow_ZeroUpdateIdentifierException_WhenIdIsNotZeroForUpdate() {
-        when(itemRepository.findById(1)).thenReturn(Optional.of(itemEntity));
+        when(itemRepository.findById(id)).thenReturn(Optional.of(itemEntity));
         assertDoesNotThrow(() -> itemService.updateItem(1, itemDTO));
     }
 }

@@ -9,13 +9,13 @@ class ObjectAlreadyExistsExceptionTest extends ExceptionsBaseTest {
 
 	@Test
     void shouldThrow_ObjectAlreadyExistsException_WhenNameAlreadyTaken() {
-        when(itemRepository.existsByName("Valid Name")).thenReturn(true);
+        when(itemRepository.existsByName(validName)).thenReturn(true);
         assertThrows(ObjectAlreadyExistsException.class, () -> itemService.createItem(itemDTO));
     }
 
 	@Test
     void shouldNotThrow_ObjectAlreadyExistsException_WhenNameIsNew() {
-        when(itemRepository.existsByName("Valid Name")).thenReturn(false);
+        when(itemRepository.existsByName(validName)).thenReturn(false);
         when(itemMapper.toEntity(itemDTO)).thenReturn(itemEntity);
         assertDoesNotThrow(() -> itemService.createItem(itemDTO));
     }

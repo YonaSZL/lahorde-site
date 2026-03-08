@@ -1,0 +1,217 @@
+#-------------------------------------------------------------------------------#
+#               Qodana analysis is configured by qodana.yaml file               #
+#             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
+#-------------------------------------------------------------------------------#
+#################################################################################
+#              WARNING: Do not store sensitive information in this file,        #
+#               as its contents will be included in the Qodana report.          #
+#################################################################################
+version: "1.0"
+#Specify inspection profile for code analysis
+profile:
+  name: qodana.starter
+#Enable inspections
+#include:
+#  - name: <SomeEnabledInspectionId>
+#Disable inspections
+#exclude:
+#  - name: <SomeDisabledInspectionId>
+#    paths:
+#      - <path/where/not/run/inspection>
+projectJDK: "25" #(Applied in CI/CD pipeline)
+#Execute shell command before Qodana execution (Applied in CI/CD pipeline)
+#bootstrap: sh ./prepare-qodana.sh
+#Install IDE plugins before Qodana execution (Applied in CI/CD pipeline)
+#plugins:
+#  - id: <plugin.id> #(plugin id can be found at https://plugins.jetbrains.com)
+# Quality gate. Will fail the CI/CD pipeline if any condition is not met
+# severityThresholds - configures maximum thresholds for different problem severities
+# testCoverageThresholds - configures minimum code coverage on a whole project and newly added code
+# Code Coverage is available in Ultimate and Ultimate Plus plans
+#failureConditions:
+#  severityThresholds:
+#    any: 15
+#    critical: 5
+#  testCoverageThresholds:
+#    fresh: 70
+#    total: 50
+#Specify Qodana linter for analysis (Applied in CI/CD pipeline)
+linter: jetbrains/qodana-jvm:2025.3
+include:
+  - name: JvmLinesOfCodeInspection
+  - name: JsCoverageInspection
+  - name: MagicNumber
+  - name: OverlyStrongTypeCast
+  - name: ClassInheritanceDepth
+  - name: ConstructorCount
+  - name: FieldCount
+  - name: MethodCount
+  - name: ClassNestingDepth
+  - name: AnonymousClassComplexity
+  - name: ClassCoupling
+  - name: ClassComplexity
+  - name: AnonymousClassMethodCount
+  - name: PublicConstructor
+  - name: ClassMayBeInterface
+  - name: ClassNameDiffersFromFileName
+  - name: EmptyClass
+  - name: MultipleTopLevelClassesInFile
+  - name: CommentedOutCode
+  - name: Deprecation
+  - name: DeprecatedIsStillUsed
+  - name: ExtractMethodRecommender
+  - name: OptionalAssignedToNull
+  - name: MarkedForRemoval
+  - name: SystemOutErr
+  - name: UseOfObsoleteDateTimeApi
+  - name: ObsoleteCollection
+  - name: RedundantScheduledForRemovalAnnotation
+  - name: ThreadDumpStack
+  - name: ThrowablePrintStackTrace
+  - name: ThrowablePrintedToSystemOut
+  - name: ForLoopReplaceableByWhile
+  - name: ExpressionMayBeFactorized
+  - name: LoopWithImplicitTerminationCondition
+  - name: NestedSwitchStatement
+  - name: NestedConditionalExpression
+  - name: OverlyComplexBooleanExpression
+  - name: UnusedLibrary
+  - name: UnusedLabel
+  - name: UnnecessaryModuleDependencyInspection
+  - name: ClassWithTooManyDependencies
+  - name: ClassWithTooManyTransitiveDependencies
+  - name: NestedTryStatement
+  - name: OnDemandImport
+  - name: MISSORTED_IMPORTS
+  - name: JavaLangImport
+  - name: SamePackageImport
+  - name: UNUSED_IMPORT
+  - name: UNUSED_IMPORT
+  - name: SimpleDateFormatWithoutLocale
+  - name: DateToString
+  - name: NumericToString
+  - name: StringToUpperWithoutLocale
+  - name: TimeToString
+  - name: CallToSuspiciousStringMethod
+  - name: CharacterComparison
+  - name: DuplicateStringLiteralInspection
+  - name: UnnecessaryUnicodeEscape
+  - name: StringTokenizer
+  - name: UseCompareMethod
+  - name: IfCanBeSwitch
+  - name: JavadocBlankLines
+  - name: ReplaceWithJavadoc
+  - name: DanglingJavadoc
+  - name: MissingDeprecatedAnnotation
+  - name: MissingJavadoc
+  - name: RedundantModifiersUtilityClassLombok
+  - name: SystemGC
+  - name: StaticCollection
+  - name: ZeroLengthArrayInitialization
+  - name: ParametersPerConstructor
+  - name: ThreeNegationsPerMethod
+  - name: MethodWithMultipleLoops
+  - name: MultipleReturnPointsPerMethod
+  - name: ThrownExceptionsPerMethod
+  - name: ParametersPerMethod
+  - name: CyclomaticComplexity
+  - name: MethodCoupling
+  - name: OverlyLongLambda
+  - name: NonCommentSourceStatements
+  - name: NonCommentSourceStatements
+  - name: NestingDepth
+  - name: NewClassNamingConvention
+  - name: ExceptionNameDoesntEndWithException
+  - name: NonExceptionNameEndsWithException
+  - name: NewMethodNamingConvention
+  - name: FieldNamingConvention
+  - name: LambdaParameterNamingConvention
+  - name: LocalVariableNamingConvention
+  - name: ParameterNamingConvention
+  - name: UpperCaseFieldNameNotConstant
+  - name: CastThatLosesPrecision
+  - name: UnnecessaryExplicitNumericCast
+  - name: BigDecimalEquals
+  - name: ConstantMathCall
+  - name: ArrayLengthInLoopCondition
+  - name: MethodCallInLoopCondition
+  - name: MultiplyOrDivideByPowerOfTwo
+  - name: OverlyLargePrimitiveArrayInitializer
+  - name: SingleCharacterStartsWith
+  - name: ObjectEqualsCanBeEquality
+  - name: MapReplaceableByEnumMap
+  - name: SetReplaceableByEnumSet
+  - name: StringEqualsEmptyString
+  - name: StringEqualsEmptyString
+  - name: AutoUnboxing
+  - name: ArraysAsListWithZeroOrOneArgument
+  - name: CallToSimpleSetterInClass
+  - name: CallToSimpleGetterInClass
+  - name: DynamicRegexReplaceableByCompiledPattern
+  - name: ExplicitArgumentCanBeLambda
+  - name: KeySetIterationMayUseEntrySet
+  - name: MethodMayBeStatic
+  - name: StringReplaceableByStringBuffer
+  - name: ObjectAllocationInLoop
+  - name: ObjectInstantiationInEqualsHashCode
+  - name: LengthOneStringInIndexOf
+  - name: LengthOneStringsInConcatenation
+  - name: TailRecursion
+  - name: RandomDoubleForRandomInteger
+  - name: UseOfSunClasses
+  - name: MisspelledEquals
+  - name: NotNullFieldNotInitialized
+  - name: NullableProblems
+  - name: ReturnNull
+  - name: EqualsAndHashcode
+  - name: InstanceofIncompatibleInterface
+  - name: ArrayEquality
+  - name: CastToIncompatibleInterface
+  - name: ObjectEquality
+  - name: ConditionCoveredByFurtherCondition
+  - name: DuplicateBranchesInSwitch
+  - name: ExcessiveLambdaUsage
+  - name: ExcessiveRangeCheck
+  - name: LombokGetterMayBeUsed
+  - name: LombokSetterMayBeUsed
+  - name: ExplicitArrayFilling
+  - name: ManualMinMaxCalculation
+  - name: MappingBeforeCount
+  - name: NonStrictComparisonCanBeEquality
+  - name: ObviousNullCheck
+  - name: SimplifyOptionalCallChains
+  - name: RedundantCollectionOperation
+  - name: RedundantCompareCall
+  - name: RedundantFileCreation
+  - name: UnreachableCatch
+  - name: UnnecessaryLabelOnContinueStatement
+  - name: UnnecessaryLabelOnBreakStatement
+  - name: UnnecessaryReturn
+  - name: UnnecessaryDefault
+  - name: UnnecessaryContinue
+  - name: UnnecessaryBreak
+  - name: UnnecessaryStringEscape
+  - name: SimplifyStreamApiCallChains
+  - name: SimplifyStreamApiCallChains
+  - name: SimplifyCollector
+  - name: RedundantCast
+  - name: RedundantTypeArguments
+  - name: RedundantUnmodifiable
+  - name: RedundantJavaTimeOperations
+  - name: RedundantStreamOptionalCall
+  - name: RedundantClassCall
+  - name: StringOperationCanBeSimplified
+  - name: RedundantArrayCreation
+  - name: RedundantLengthCheck
+  - name: RedundantEmbeddedExpression
+  - name: RedundantEscapeInRegexReplacement
+  - name: OnlyOneElementUsed
+  - name: SqlAutoIncrementDuplicateInspection
+  - name: SqlDeprecateTypeInspection
+  - name: SqlJoinCountInspection
+  - name: DeprecatedClassUsageInspection
+  - name: XmlDeprecatedElement
+exclude:
+  - name: DuplicateStringLiteralInspection
+    paths:
+      - src\main\java\yonasazela\lahordeapi\entities

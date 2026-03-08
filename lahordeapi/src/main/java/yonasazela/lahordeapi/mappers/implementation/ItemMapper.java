@@ -3,15 +3,39 @@ package yonasazela.lahordeapi.mappers.implementation;
 import org.springframework.stereotype.Component;
 import yonasazela.lahordeapi.dto.ItemDTO;
 import yonasazela.lahordeapi.entities.ItemEntity;
+import yonasazela.lahordeapi.exceptions.NullObjectException;
 import yonasazela.lahordeapi.mappers.IItemMapper;
 
+/**
+ * Manual implementation of IItemMapper.
+ * Provides logic to convert between ItemEntity and ItemDTO.
+ */
 @Component
 public class ItemMapper implements IItemMapper {
 
-	@Override
+    private ItemMapper() {
+    }
+
+    /**
+     * Factory method to create a new instance of ItemMapper.
+     *
+     * @return a new ItemMapper instance.
+     */
+    public static ItemMapper newItemMapper() {
+        return new ItemMapper();
+    }
+
+    /**
+     * Converts an ItemEntity to an ItemDTO.
+     * Throws NullObjectException if the entity is null.
+     *
+     * @param entity the ItemEntity to convert.
+     * @return the converted ItemDTO.
+     */
+    @Override
 	public ItemDTO toDTO(ItemEntity entity) {
 		if (entity == null)
-			return null;
+			throw NullObjectException.newNullObjectException();
 
 		return ItemDTO.builder().id(entity.getId()).name(entity.getName()).price(entity.getPrice())
 				.weight(entity.getWeight()).size(entity.getSize()).priceForOneSlot(entity.getPriceForOneSlot()) // lecture
@@ -19,10 +43,17 @@ public class ItemMapper implements IItemMapper {
 				.description(entity.getDescription()).build();
 	}
 
+    /**
+     * Converts an ItemDTO to an ItemEntity.
+     * Throws NullObjectException if the DTO is null.
+     *
+     * @param dto the ItemDTO to convert.
+     * @return the converted ItemEntity.
+     */
 	@Override
 	public ItemEntity toEntity(ItemDTO dto) {
 		if (dto == null)
-			return null;
+			throw NullObjectException.newNullObjectException();
 
 		return ItemEntity.builder().id(dto.getId()).name(dto.getName()).price(dto.getPrice()).weight(dto.getWeight())
 				.size(dto.getSize())
@@ -30,10 +61,17 @@ public class ItemMapper implements IItemMapper {
 				.description(dto.getDescription()).build();
 	}
 
+    /**
+     * Updates an existing ItemEntity from an ItemDTO.
+     * Throws NullObjectException if either the DTO or the entity is null.
+     *
+     * @param dto    the ItemDTO containing the new data.
+     * @param entity the ItemEntity to update.
+     */
 	@Override
 	public void updateEntityFromDTO(ItemDTO dto, ItemEntity entity) {
 		if (dto == null || entity == null)
-			return;
+			throw NullObjectException.newNullObjectException();
 
 		// Mettre à jour uniquement les champs modifiables
 		entity.setName(dto.getName());

@@ -15,7 +15,7 @@ class NegativeIdentifierExceptionTest extends ExceptionsBaseTest {
 
 	@Test
     void shouldNotThrow_NegativeIdentifierException_WhenIdIsPositive() {
-        when(itemRepository.findById(1)).thenReturn(Optional.of(itemEntity));
+        when(itemRepository.findById(id)).thenReturn(Optional.of(itemEntity));
         assertDoesNotThrow(() -> itemService.getItemById(1));
     }
 }

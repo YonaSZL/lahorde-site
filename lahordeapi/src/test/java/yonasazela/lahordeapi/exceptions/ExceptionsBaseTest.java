@@ -25,10 +25,12 @@ abstract class ExceptionsBaseTest {
 
 	protected ItemEntity itemEntity;
 	protected ItemDTO itemDTO;
+	protected int id = 1;
+	protected String validName = "Valid Name";
 
 	@BeforeEach
 	void setUp() {
 		itemEntity = new ItemEntity();
-		itemDTO = ItemDTO.builder().name("Valid Name").build();
+		itemDTO = ItemDTO.builder().name(validName).build();
 	}
 }
