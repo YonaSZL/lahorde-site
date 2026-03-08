@@ -7,12 +7,12 @@ import static org.mockito.Mockito.when;
 
 class NullObjectExceptionTest extends ExceptionsBaseTest {
 
-    @Test
-    void shouldThrow_NullObjectException_WhenDTOIsNull() {
-        assertThrows(NullObjectException.class, () -> itemService.createItem(null));
-    }
+	@Test
+	void shouldThrow_NullObjectException_WhenDTOIsNull() {
+		assertThrows(NullObjectException.class, () -> itemService.createItem(null));
+	}
 
-    @Test
+	@Test
     void shouldNotThrow_NullObjectException_WhenDTOIsNotNull() {
         when(itemMapper.toEntity(itemDTO)).thenReturn(itemEntity);
         assertDoesNotThrow(() -> itemService.createItem(itemDTO));

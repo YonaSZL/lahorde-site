@@ -6,5 +6,5 @@ import yonasazela.lahordeapi.entities.ItemEntity;
 
 @Repository
 public interface ItemRepository extends JpaRepository<ItemEntity, Integer> {
-    boolean existsByName(String name);
+	boolean existsByName(String name);
 }

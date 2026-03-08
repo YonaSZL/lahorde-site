@@ -8,12 +8,12 @@ import static org.mockito.Mockito.when;
 
 class NegativeIdentifierExceptionTest extends ExceptionsBaseTest {
 
-    @Test
-    void shouldThrow_NegativeIdentifierException_WhenIdIsNegative() {
-        assertThrows(NegativeIdentifierException.class, () -> itemService.getItemById(-1));
-    }
+	@Test
+	void shouldThrow_NegativeIdentifierException_WhenIdIsNegative() {
+		assertThrows(NegativeIdentifierException.class, () -> itemService.getItemById(-1));
+	}
 
-    @Test
+	@Test
     void shouldNotThrow_NegativeIdentifierException_WhenIdIsPositive() {
         when(itemRepository.findById(1)).thenReturn(Optional.of(itemEntity));
         assertDoesNotThrow(() -> itemService.getItemById(1));

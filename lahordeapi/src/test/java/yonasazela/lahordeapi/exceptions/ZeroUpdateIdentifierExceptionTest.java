@@ -8,12 +8,12 @@ import static org.mockito.Mockito.when;
 
 class ZeroUpdateIdentifierExceptionTest extends ExceptionsBaseTest {
 
-    @Test
-    void shouldThrow_ZeroUpdateIdentifierException_WhenIdIsZeroForUpdate() {
-        assertThrows(ZeroUpdateIdentifierException.class, () -> itemService.updateItem(0, itemDTO));
-    }
+	@Test
+	void shouldThrow_ZeroUpdateIdentifierException_WhenIdIsZeroForUpdate() {
+		assertThrows(ZeroUpdateIdentifierException.class, () -> itemService.updateItem(0, itemDTO));
+	}
 
-    @Test
+	@Test
     void shouldNotThrow_ZeroUpdateIdentifierException_WhenIdIsNotZeroForUpdate() {
         when(itemRepository.findById(1)).thenReturn(Optional.of(itemEntity));
         assertDoesNotThrow(() -> itemService.updateItem(1, itemDTO));

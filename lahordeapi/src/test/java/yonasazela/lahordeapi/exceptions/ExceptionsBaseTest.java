@@ -14,21 +14,21 @@ import yonasazela.lahordeapi.services.implementation.ItemService;
 @ExtendWith(MockitoExtension.class)
 abstract class ExceptionsBaseTest {
 
-    @Mock
-    protected ItemRepository itemRepository;
+	@Mock
+	protected ItemRepository itemRepository;
 
-    @Mock
-    protected ItemMapper itemMapper;
+	@Mock
+	protected ItemMapper itemMapper;
 
-    @InjectMocks
-    protected ItemService itemService;
+	@InjectMocks
+	protected ItemService itemService;
 
-    protected ItemEntity itemEntity;
-    protected ItemDTO itemDTO;
+	protected ItemEntity itemEntity;
+	protected ItemDTO itemDTO;
 
-    @BeforeEach
-    void setUp() {
-        itemEntity = new ItemEntity();
-        itemDTO = ItemDTO.builder().name("Valid Name").build();
-    }
+	@BeforeEach
+	void setUp() {
+		itemEntity = new ItemEntity();
+		itemDTO = ItemDTO.builder().name("Valid Name").build();
+	}
 }

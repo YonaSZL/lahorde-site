@@ -7,13 +7,13 @@ import static org.mockito.Mockito.when;
 
 class ObjectAlreadyExistsExceptionTest extends ExceptionsBaseTest {
 
-    @Test
+	@Test
     void shouldThrow_ObjectAlreadyExistsException_WhenNameAlreadyTaken() {
         when(itemRepository.existsByName("Valid Name")).thenReturn(true);
         assertThrows(ObjectAlreadyExistsException.class, () -> itemService.createItem(itemDTO));
     }
 
-    @Test
+	@Test
     void shouldNotThrow_ObjectAlreadyExistsException_WhenNameIsNew() {
         when(itemRepository.existsByName("Valid Name")).thenReturn(false);
         when(itemMapper.toEntity(itemDTO)).thenReturn(itemEntity);

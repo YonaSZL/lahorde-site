@@ -8,13 +8,13 @@ import static org.mockito.Mockito.when;
 
 class DBExceptionTest extends ExceptionsBaseTest {
 
-    @Test
+	@Test
     void shouldThrow_DBException_WhenDatabaseCrashesOnSave() {
         when(itemRepository.findById(1)).thenThrow(new RuntimeException("DB crash"));
         assertThrows(DBException.class, () -> itemService.getItemById(1));
     }
 
-    @Test
+	@Test
     void shouldNotThrow_DBException_WhenDatabaseWorks() {
         when(itemRepository.findById(1)).thenReturn(Optional.of(itemEntity));
         assertDoesNotThrow(() -> itemService.getItemById(1));
