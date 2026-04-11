@@ -8,12 +8,12 @@ public class NullStringParameterException extends IllegalArgumentException {
 		super("Object name cannot be null or blank");
 	}
 
-    /**
-     * Factory method to create a new NullStringParameterException.
-     *
-     * @return a new instance of NullStringParameterException.
-     */
-    public static NullStringParameterException newNullStringParameterException() {
-        return new NullStringParameterException();
-    }
+	/**
+	 * Factory method to create a new NullStringParameterException.
+	 *
+	 * @return a new instance of NullStringParameterException.
+	 */
+	public static NullStringParameterException newNullStringParameterException() {
+		return new NullStringParameterException();
+	}
 }

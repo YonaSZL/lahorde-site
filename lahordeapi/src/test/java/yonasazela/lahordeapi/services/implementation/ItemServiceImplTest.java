@@ -8,27 +8,23 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
-import yonasazela.lahordeapi.dto.ItemDTO;
-import yonasazela.lahordeapi.entities.ItemEntity;
-import yonasazela.lahordeapi.exceptions.DBException;
+import yonasazela.lahordeapi.kenshi.dto.ItemDTO;
+import yonasazela.lahordeapi.kenshi.entities.ItemEntity;
 import yonasazela.lahordeapi.exceptions.NullObjectException;
 import yonasazela.lahordeapi.exceptions.NegativeIdentifierException;
 import yonasazela.lahordeapi.exceptions.ObjectNotFoundException;
 import yonasazela.lahordeapi.exceptions.ObjectAlreadyExistsException;
 import yonasazela.lahordeapi.exceptions.ZeroUpdateIdentifierException;
 import yonasazela.lahordeapi.exceptions.NullStringParameterException;
-import yonasazela.lahordeapi.mappers.implementation.ItemMapper;
-import yonasazela.lahordeapi.repositories.ItemRepository;
+import yonasazela.lahordeapi.kenshi.mappers.implementation.ItemMapper;
+import yonasazela.lahordeapi.kenshi.repositories.implementation.ItemRepository;
+import yonasazela.lahordeapi.kenshi.services.implementation.ItemService;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
@@ -52,7 +48,6 @@ class ItemServiceImplTest {
 	private ItemDTO outputDto;
 
 	private int id;
-	private String name;
 	private List<ItemEntity> entityList;
 
 	@BeforeEach
@@ -66,78 +61,12 @@ class ItemServiceImplTest {
 		outputDto = new ItemDTO();
 
 		id = 1;
-		name = "Item";
 		entityList = List.of(entity, otherEntity);
 	}
 
-	// ===== SECTION 1 - CRUD DATABASE ONE ENTITY =====
+	// ===== SECTION 1 - CRUD API ONE ENTITY =====
 	@Nested
-	@DisplayName("SECTION 1 - CRUD DATABASE ONE ENTITY")
-	class CrudDatabaseOneEntity {
-		@Test
-		@DisplayName("findById should throw DBException when repository fails")
-		void findById_dbException() {
-			when(itemRepository.findById(id)).thenThrow(new RuntimeException("DB error"));
-
-			assertThatThrownBy(() -> ReflectionTestUtils.invokeMethod(itemService, "findById", id))
-					.isInstanceOf(DBException.class).hasMessageContaining("Error while retrieving object");
-		}
-
-		@Test
-		@DisplayName("save should throw DBException when repository fails")
-		void save_dbException() {
-			when(itemRepository.save(any())).thenThrow(new RuntimeException("DB error"));
-
-			assertThatThrownBy(() -> ReflectionTestUtils.invokeMethod(itemService, "save", entity))
-					.isInstanceOf(DBException.class).hasMessageContaining("Error while saving object");
-		}
-
-		@Test
-		@DisplayName("existsById should throw DBException when repository fails")
-		void existsById_dbException() {
-			when(itemRepository.existsById(id)).thenThrow(new RuntimeException("DB error"));
-
-			assertThatThrownBy(() -> ReflectionTestUtils.invokeMethod(itemService, "existsById", id))
-					.isInstanceOf(DBException.class).hasMessageContaining("Error while checking existence");
-		}
-
-		@Test
-		@DisplayName("existsByName should throw DBException when repository fails")
-		void existsByName_dbException() {
-			when(itemRepository.existsByName(name)).thenThrow(new RuntimeException("DB error"));
-
-			assertThatThrownBy(() -> ReflectionTestUtils.invokeMethod(itemService, "existsByName", name))
-					.isInstanceOf(DBException.class).hasMessageContaining("Error while checking existence");
-		}
-
-		@Test
-		@DisplayName("deleteById should throw DBException when repository fails")
-		void deleteById_dbException() {
-			doThrow(new RuntimeException("DB error")).when(itemRepository).deleteById(id);
-
-			assertThatThrownBy(() -> ReflectionTestUtils.invokeMethod(itemService, "deleteById", id))
-					.isInstanceOf(DBException.class).hasMessageContaining("Error while deleting object");
-		}
-	}
-
-	// ===== SECTION 2 - CRUD DATABASE MULTIPLE ENTITIES =====
-	@Nested
-	@DisplayName("SECTION 2 - CRUD DATABASE MULTIPLE ENTITIES")
-	class CrudDatabaseMultipleEntities {
-		@Test
-        @DisplayName("findAll should throw DBException when repository fails")
-        void findAll_dbException() {
-            when(itemRepository.findAll()).thenThrow(new RuntimeException("DB error"));
-
-            assertThatThrownBy(() -> ReflectionTestUtils.invokeMethod(itemService, "findAll"))
-                    .isInstanceOf(DBException.class)
-                    .hasMessageContaining("Error while retrieving all objects");
-        }
-	}
-
-	// ===== SECTION 3 - CRUD API ONE ENTITY =====
-	@Nested
-	@DisplayName("SECTION 3 - CRUD API ONE ENTITY")
+	@DisplayName("SECTION 1 - CRUD API ONE ENTITY")
 	class CrudApiOneEntity {
 
 		@Nested
@@ -146,7 +75,7 @@ class ItemServiceImplTest {
 			@Test
 			@DisplayName("should return ItemDTO when id exists")
 			void getItemById_success() {
-				when(itemRepository.findById(id)).thenReturn(Optional.of(entity));
+				when(itemRepository.findById(id)).thenReturn(entity);
 				when(itemMapper.toDTO(entity)).thenReturn(dto);
 
 				ItemDTO result = itemService.getItemById(id);
@@ -164,7 +93,7 @@ class ItemServiceImplTest {
 			@Test
 			@DisplayName("should throw ObjectNotFoundException when id does not exist")
 			void getItemById_notFound() {
-				when(itemRepository.findById(id)).thenReturn(Optional.empty());
+				when(itemRepository.findById(id)).thenThrow(ObjectNotFoundException.newObjectNotFoundException(id));
 
 				assertThatThrownBy(() -> itemService.getItemById(id)).isInstanceOf(ObjectNotFoundException.class);
 			}
@@ -223,7 +152,7 @@ class ItemServiceImplTest {
 			@Test
 			@DisplayName("should update item successfully")
 			void updateItem_success() {
-				when(itemRepository.findById(id)).thenReturn(Optional.of(entity));
+				when(itemRepository.findById(id)).thenReturn(entity);
 				when(itemRepository.save(entity)).thenReturn(savedEntity);
 				when(itemMapper.toDTO(savedEntity)).thenReturn(outputDto);
 
@@ -251,8 +180,7 @@ class ItemServiceImplTest {
 			@Test
 			@DisplayName("should throw NullObjectException when DTO is null")
 			void updateItem_nullDto() {
-				assertThatThrownBy(() -> itemService.updateItem(id, null))
-						.isInstanceOf(NullObjectException.class);
+				assertThatThrownBy(() -> itemService.updateItem(id, null)).isInstanceOf(NullObjectException.class);
 			}
 		}
 
@@ -280,15 +208,14 @@ class ItemServiceImplTest {
 			@Test
 			@DisplayName("should throw NegativeIdentifierException when id is negative")
 			void deleteItem_negativeId() {
-				assertThatThrownBy(() -> itemService.deleteItem(-1))
-						.isInstanceOf(NegativeIdentifierException.class);
+				assertThatThrownBy(() -> itemService.deleteItem(-1)).isInstanceOf(NegativeIdentifierException.class);
 			}
 		}
 	}
 
-	// ===== SECTION 4 - CRUD API MULTIPLE ENTITIES =====
+	// ===== SECTION 2 - CRUD API MULTIPLE ENTITIES =====
 	@Nested
-	@DisplayName("SECTION 4 - CRUD API MULTIPLE ENTITIES")
+	@DisplayName("SECTION 2 - CRUD API MULTIPLE ENTITIES")
 	class CrudApiMultipleEntities {
 		@Test
 		@DisplayName("should return all items")

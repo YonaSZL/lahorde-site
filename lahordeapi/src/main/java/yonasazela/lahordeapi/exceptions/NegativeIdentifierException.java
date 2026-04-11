@@ -8,12 +8,12 @@ public class NegativeIdentifierException extends IllegalArgumentException {
 		super("Id cannot be negative");
 	}
 
-    /**
-     * Factory method to create a new NegativeIdentifierException.
-     *
-     * @return a new instance of NegativeIdentifierException.
-     */
-    public static NegativeIdentifierException newNegativeIdentifierException() {
-        return new NegativeIdentifierException();
-    }
+	/**
+	 * Factory method to create a new NegativeIdentifierException.
+	 *
+	 * @return a new instance of NegativeIdentifierException.
+	 */
+	public static NegativeIdentifierException newNegativeIdentifierException() {
+		return new NegativeIdentifierException();
+	}
 }

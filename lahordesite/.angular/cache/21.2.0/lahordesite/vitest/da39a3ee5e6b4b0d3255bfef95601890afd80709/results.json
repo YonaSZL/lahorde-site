@@ -1,0 +1,6 @@
+{
+	"version": "4.0.18",
+	"results": [
+		["lahordesite:src/app/homepage/homepage.spec.ts", { "duration": 246.4402, "failed": false }]
+	]
+}

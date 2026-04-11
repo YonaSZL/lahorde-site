@@ -8,14 +8,16 @@ public class ObjectAlreadyExistsException extends RuntimeException {
 		super("Object with " + field + " already exists: " + value);
 	}
 
-    /**
-     * Factory method to create a new ObjectAlreadyExistsException.
-     *
-     * @param field the field that caused the conflict.
-     * @param value the value that already exists.
-     * @return a new instance of ObjectAlreadyExistsException.
-     */
-    public static ObjectAlreadyExistsException newObjectAlreadyExistsException(String field, Object value) {
-        return new ObjectAlreadyExistsException(field, value);
-    }
+	/**
+	 * Factory method to create a new ObjectAlreadyExistsException.
+	 *
+	 * @param field
+	 *            the field that caused the conflict.
+	 * @param value
+	 *            the value that already exists.
+	 * @return a new instance of ObjectAlreadyExistsException.
+	 */
+	public static ObjectAlreadyExistsException newObjectAlreadyExistsException(String field, Object value) {
+		return new ObjectAlreadyExistsException(field, value);
+	}
 }

@@ -18,17 +18,16 @@ class MainTest {
 		Assertions.assertTrue(true, "The test suite should be correctly initialized.");
 	}
 
-    @Test
-    @DisplayName("newLahordeApiApplication should create a new instance")
-    void newLahordeApiApplication_shouldCreateNewInstance() {
-        assertThat(LahordeApiApplication.newLahordeApiApplication())
-                .isNotNull()
-                .isInstanceOf(LahordeApiApplication.class);
-    }
+	@Test
+	@DisplayName("newLahordeApiApplication should create a new instance")
+	void newLahordeApiApplication_shouldCreateNewInstance() {
+		assertThat(LahordeApiApplication.newLahordeApiApplication()).isNotNull()
+				.isInstanceOf(LahordeApiApplication.class);
+	}
 
-    @Test
-    @DisplayName("main method should not throw exception")
-    void main_shouldNotThrowException() {
-        assertDoesNotThrow(() -> LahordeApiApplication.main(new String[]{"--server.port=0"}));
-    }
+	@Test
+	@DisplayName("main method should not throw exception")
+	void main_shouldNotThrowException() {
+		assertDoesNotThrow(() -> LahordeApiApplication.main(new String[]{"--server.port=0"}));
+	}
 }

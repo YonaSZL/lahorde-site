@@ -1,0 +1,107 @@
+.about-me-container {
+	display: flex;
+	gap: 1.5rem;
+	padding: 1rem;
+	align-items: flex-start;
+}
+
+.initial-focus-trap {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.profile-image img {
+	width: 9rem;
+	height: auto;
+	object-fit: contain;
+	border-radius: 0.5rem;
+}
+
+.profile-content {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	text-align: left;
+}
+
+.profile-header {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.name {
+	font-weight: bold;
+	font-size: 1.4rem;
+}
+
+.flag {
+	height: 1.2em;
+	width: auto;
+	vertical-align: middle;
+}
+
+.section {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.section-title {
+	font-weight: 500;
+	margin-bottom: 0.25rem;
+	font-size: 1.05rem;
+}
+
+.languages {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.language-item {
+	display: flex;
+	align-items: center;
+	gap: 0.3rem;
+	line-height: 1.2;
+	font-size: 1rem;
+}
+
+.icon {
+	font-size: 1.2rem;
+	width: 1.2em;
+	height: 1.2em;
+}
+
+.status {
+	margin-left: 0.25rem;
+}
+
+.socials {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+
+.social-icon {
+	width: 2rem;
+	height: 2rem;
+	display: block;
+	object-fit: contain;
+}
+
+.itch-logo {
+	background-color: #fa5c5c;
+	mask: url('/itchio-logo-textless-black.png') no-repeat center;
+	-webkit-mask: url('/itchio-logo-textless-black.png') no-repeat center;
+	mask-size: contain;
+	-webkit-mask-size: contain;
+}

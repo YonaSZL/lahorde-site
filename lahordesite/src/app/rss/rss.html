@@ -1,0 +1,73 @@
+<app-generic-dialog>
+	@if (view === 'topics') {
+		<div class="grid">
+			@for (topic of topics.slice(0, 9); track topic.name) {
+				<mat-card
+					class="topic-card"
+					(click)="selectTopic(topic)"
+				>
+					{{ topic.name }}
+				</mat-card>
+			}
+		</div>
+	}
+
+	@if (view === 'articles' && selectedTopic) {
+		<div class="header">
+			<button
+				mat-icon-button
+				(click)="backToTopics()"
+			>
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<h2>{{ selectedTopic.name }}</h2>
+		</div>
+
+		<div class="list">
+			@for (article of articles.slice(0, 5); track article.id) {
+				<mat-card
+					class="article-card"
+					(click)="selectArticle(article)"
+				>
+					<div class="title">{{ article.title }}</div>
+
+					<div class="source">
+						<a
+							[href]="article.link"
+							target="_blank"
+						>
+							source
+						</a>
+					</div>
+
+					<div class="excerpt">{{ stripHtml(article.description).slice(0, 120) }}...</div>
+				</mat-card>
+			}
+		</div>
+	}
+
+	@if (view === 'article' && selectedArticle) {
+		<div class="header">
+			<button
+				mat-icon-button
+				(click)="backToArticles()"
+			>
+				<mat-icon>arrow_back</mat-icon>
+			</button>
+			<h2>{{ selectedArticle.title }}</h2>
+		</div>
+
+		<div class="article-view">
+			<div class="source">
+				<a
+					[href]="selectedArticle.link"
+					target="_blank"
+				>
+					open original article
+				</a>
+			</div>
+
+			<div>{{ stripHtml(selectedArticle.description) }}</div>
+		</div>
+	}
+</app-generic-dialog>

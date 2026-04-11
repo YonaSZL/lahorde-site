@@ -8,12 +8,12 @@ public class NullObjectException extends IllegalArgumentException {
 		super("Object cannot be null");
 	}
 
-    /**
-     * Factory method to create a new NullObjectException.
-     *
-     * @return a new instance of NullObjectException.
-     */
-    public static NullObjectException newNullObjectException() {
-        return new NullObjectException();
-    }
+	/**
+	 * Factory method to create a new NullObjectException.
+	 *
+	 * @return a new instance of NullObjectException.
+	 */
+	public static NullObjectException newNullObjectException() {
+		return new NullObjectException();
+	}
 }

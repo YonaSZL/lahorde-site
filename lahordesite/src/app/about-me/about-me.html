@@ -1,0 +1,76 @@
+<app-generic-dialog>
+	<div class="about-me-container">
+		<button
+			class="initial-focus-trap"
+			aria-hidden="true"
+		></button>
+		<div class="profile-image">
+			<img
+				src="github.png"
+				alt="GitHub Profile"
+			/>
+		</div>
+		<div class="profile-content">
+			<div class="profile-header">
+				<span class="name">Yona Sazela</span>
+				<img
+					src="french_flag.png"
+					alt="French Flag"
+					class="flag"
+				/>
+			</div>
+
+			<div class="section">
+				<div class="section-title">Languages spoken</div>
+				<div class="languages">
+					<div class="language-item">
+						<mat-icon
+							fontSet="material-symbols-rounded"
+							class="icon"
+							>language_french</mat-icon
+						>
+						<mat-icon
+							fontSet="material-symbols-rounded"
+							class="icon"
+							>language_us</mat-icon
+						>
+						<span class="status">Fluent</span>
+					</div>
+					<div class="language-item">
+						<mat-icon
+							fontSet="material-symbols-rounded"
+							class="icon"
+							>language_japanese_kana</mat-icon
+						>
+						<span class="status">Notions</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="section">
+				<div class="section-title">Socials</div>
+				<div class="socials">
+					<a
+						[href]="GITHUB_URL"
+						target="_blank"
+						rel="noopener"
+					>
+						<img
+							src="GitHub_Invertocat_Black.png"
+							alt="GitHub"
+							class="social-icon"
+						/>
+					</a>
+					<a
+						[href]="ITCHIO_URL"
+						target="_blank"
+						rel="noopener"
+						class="social-link itch-link"
+					>
+						<div class="social-icon itch-logo"></div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</app-generic-dialog>

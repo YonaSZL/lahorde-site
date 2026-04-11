@@ -1,7 +1,8 @@
 package yonasazela.lahordeapi.exceptions;
 
 import org.junit.jupiter.api.Test;
-import yonasazela.lahordeapi.dto.ItemDTO;
+import yonasazela.lahordeapi.kenshi.dto.ItemDTO;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;

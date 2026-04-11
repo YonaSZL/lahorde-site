@@ -8,13 +8,14 @@ public class ObjectNotFoundException extends RuntimeException {
 		super("Object not found with id : " + id);
 	}
 
-    /**
-     * Factory method to create a new ObjectNotFoundException.
-     *
-     * @param id the ID of the object that was not found.
-     * @return a new instance of ObjectNotFoundException.
-     */
-    public static ObjectNotFoundException newObjectNotFoundException(int id) {
-        return new ObjectNotFoundException(id);
-    }
+	/**
+	 * Factory method to create a new ObjectNotFoundException.
+	 *
+	 * @param id
+	 *            the ID of the object that was not found.
+	 * @return a new instance of ObjectNotFoundException.
+	 */
+	public static ObjectNotFoundException newObjectNotFoundException(int id) {
+		return new ObjectNotFoundException(id);
+	}
 }

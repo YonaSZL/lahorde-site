@@ -11,8 +11,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import yonasazela.lahordeapi.dto.ItemDTO;
-import yonasazela.lahordeapi.services.IItemService;
+import yonasazela.lahordeapi.kenshi.controllers.ItemController;
+import yonasazela.lahordeapi.kenshi.dto.ItemDTO;
+import yonasazela.lahordeapi.kenshi.services.IItemService;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -31,8 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Unit tests for ItemController.
- * Tests the controller in a mock MVC environment using MockMvc.
+ * Unit tests for ItemController. Tests the controller in a mock MVC environment
+ * using MockMvc.
  */
 @ExtendWith(MockitoExtension.class)
 class ItemControllerTest {
@@ -62,7 +63,8 @@ class ItemControllerTest {
 	}
 
 	private String asJsonString() {
-		return "{\"id\":" + id + ",\"name\":\"Test Item\",\"price\":10.0,\"weight\":1.0,\"size\":1,\"description\":\"Test Description\"}";
+		return "{\"id\":" + id
+				+ ",\"name\":\"Test Item\",\"price\":10.0,\"weight\":1.0,\"size\":1,\"description\":\"Test Description\"}";
 	}
 
 	@Nested

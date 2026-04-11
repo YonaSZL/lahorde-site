@@ -3,9 +3,10 @@ package yonasazela.lahordeapi.mappers.implementation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import yonasazela.lahordeapi.dto.ItemDTO;
-import yonasazela.lahordeapi.entities.ItemEntity;
+import yonasazela.lahordeapi.kenshi.dto.ItemDTO;
+import yonasazela.lahordeapi.kenshi.entities.ItemEntity;
 import yonasazela.lahordeapi.exceptions.NullObjectException;
+import yonasazela.lahordeapi.kenshi.mappers.implementation.ItemMapper;
 
 import java.math.BigDecimal;
 

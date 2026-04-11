@@ -1,7 +1,6 @@
 package yonasazela.lahordeapi.exceptions;
 
 import org.junit.jupiter.api.Test;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -12,13 +11,13 @@ class DBExceptionTest extends ExceptionsBaseTest {
 
 	@Test
     void shouldThrow_DBException_WhenDatabaseCrashesOnSave() {
-        when(itemRepository.findById(id)).thenThrow(new RuntimeException("DB crash"));
+        when(itemRepository.findById(id)).thenThrow(DBException.newDBException("action", new RuntimeException("DB crash")));
         assertThrows(DBException.class, () -> itemService.getItemById(1));
     }
 
 	@Test
     void shouldNotThrow_DBException_WhenDatabaseWorks() {
-        when(itemRepository.findById(id)).thenReturn(Optional.of(itemEntity));
+        when(itemRepository.findById(id)).thenReturn(itemEntity);
         assertDoesNotThrow(() -> itemService.getItemById(1));
     }
 

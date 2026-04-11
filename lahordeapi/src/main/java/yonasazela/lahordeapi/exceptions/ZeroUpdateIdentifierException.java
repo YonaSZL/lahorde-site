@@ -8,12 +8,12 @@ public class ZeroUpdateIdentifierException extends IllegalArgumentException {
 		super("Id cannot be 0 for update");
 	}
 
-    /**
-     * Factory method to create a new ZeroUpdateIdentifierException.
-     *
-     * @return a new instance of ZeroUpdateIdentifierException.
-     */
-    public static ZeroUpdateIdentifierException newZeroUpdateIdentifierException() {
-        return new ZeroUpdateIdentifierException();
-    }
+	/**
+	 * Factory method to create a new ZeroUpdateIdentifierException.
+	 *
+	 * @return a new instance of ZeroUpdateIdentifierException.
+	 */
+	public static ZeroUpdateIdentifierException newZeroUpdateIdentifierException() {
+		return new ZeroUpdateIdentifierException();
+	}
 }

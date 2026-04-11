@@ -1,7 +1,7 @@
 package yonasazela.lahordeapi.exceptions;
 
 import org.junit.jupiter.api.Test;
-import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
@@ -15,7 +15,7 @@ class ZeroUpdateIdentifierExceptionTest extends ExceptionsBaseTest {
 
 	@Test
     void shouldNotThrow_ZeroUpdateIdentifierException_WhenIdIsNotZeroForUpdate() {
-        when(itemRepository.findById(id)).thenReturn(Optional.of(itemEntity));
+        when(itemRepository.findById(id)).thenReturn(itemEntity);
         assertDoesNotThrow(() -> itemService.updateItem(1, itemDTO));
     }
 }

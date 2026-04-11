@@ -5,11 +5,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import yonasazela.lahordeapi.dto.ItemDTO;
-import yonasazela.lahordeapi.entities.ItemEntity;
-import yonasazela.lahordeapi.mappers.implementation.ItemMapper;
-import yonasazela.lahordeapi.repositories.ItemRepository;
-import yonasazela.lahordeapi.services.implementation.ItemService;
+import yonasazela.lahordeapi.kenshi.dto.ItemDTO;
+import yonasazela.lahordeapi.kenshi.entities.ItemEntity;
+import yonasazela.lahordeapi.kenshi.mappers.implementation.ItemMapper;
+import yonasazela.lahordeapi.kenshi.repositories.implementation.ItemRepository;
+import yonasazela.lahordeapi.kenshi.services.implementation.ItemService;
 
 @ExtendWith(MockitoExtension.class)
 abstract class ExceptionsBaseTest {
